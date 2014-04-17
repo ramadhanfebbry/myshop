@@ -26,6 +26,11 @@
     <script type="text/javascript" src="assets/js/jquery.print.js"></script>
 
 
+    <script type="text/javascript" src="assets/js/jquery-ui.js"></script>
+    <link href="assets/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+
+
     <!-- Analytics
     ================================================== -->
     <script type="text/javascript">
@@ -59,7 +64,25 @@
     })();
 
     // $("input[name=kode]").attr("data-source", values.split(","));
-$("input[name=kode]").typeahead({source: values})  
-</script>
+if(typeof arr_vals != 'undefined') {
+
+    $("input[name=jenis_barang]").typeahead({source: arr_vals})  
+
+}
 
 
+if(typeof kode_lists != 'undefined') {
+    
+    $("input.kode_brg").autocomplete({
+        data: kode_lists
+        , minChars: 1,
+      showResult: function(value, data) {
+        console.log("asdasd")
+  return value.replace(new RegExp("(" + $("#input_box").val() + ")", "gi"), "<strong>$1</strong>");
+}
+
+    })
+
+}
+
+</script>    

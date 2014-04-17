@@ -1,9 +1,16 @@
 
 <div class="container marketing">
 <h2>List Barang</h2>
-<a href="page.php?page_name=tambah_barang" class="pull-right btn btn-primary btn-large">
+<div class="pull-right" style="width: 100%;">
+<form class="form-search" style="float: right;" method="GET" action="page.php">
+  <input type="text" class="input-medium search-query" name="q" value="<?php echo $_GET["q"]; ?>">
+  <input type="hidden" name="page_name" value="listbarang" >
+  <button type="submit" class="btn">Search</button>
+</form>
+<a href="page.php?page_name=tambah_barang" class="btn btn-primary btn-small" style="float: left;">
 <i class="icon-plus icon-white"></i>
-Tambah Barang</a>
+Tambah</a>
+</div>
 <br />
 
     </div>
@@ -14,15 +21,23 @@ Tambah Barang</a>
 
   <?php
 		require_once "connection.php";
-		$query = mysql_query("select * from barang");
+		if(isset($_GET["q"])){
+      $q = $_GET["q"];
+      $sqlScript = "SELECT * FROM barang where nama LIKE '%$q%' or kode LIKE '%$q%'";
+    }else{
+      $sqlScript = "SELECT * FROM barang";
+    }
+    $query = mysql_query($sqlScript);
 		while ($data = mysql_fetch_array($query)) {
 	?>
-        <div class="span3">
-          <img class="img-polaroid" data-src="holder.js/140x140" alt="140x140" src="<?php echo $data['img_tmp']?>" style="width: 140px; height: 140px;">
+        <div class="span3" style="border: 1px solid #cdcdcd;margin:0px;padding:5px">
+          <img class="img-polaroid" data-src="holder.js/140x140" alt="140x140" src="<?php echo $data['img_tmp']?>" style="width: 95%; height: 150px;">
           <?php 
-          echo "<h3><a  href='page.php?page_name=tampil_barang&kode=".$data['kode']."'>".$data["nama"]."</a></h3>";
-          echo "<span>".$data['harga']."</span>";
+          echo "<span><b>#".$data['kode']."</b></span>";
+
+          echo "<h3><a href='page.php?page_name=tampil_barang&kode=".$data['kode']."'>".$data["nama"]."</a></h3>";
           echo "<p><a href='page.php?page_name=edit_barang&kode=".$data['kode']."'>Edit</a>";
+          echo " | <a href='page.php?page_name=tampil_barang&kode=".$data['kode']."'>Tampil</a>";
           echo " | <a href='delete.php?kode=".$data['kode']."'>Hapus</a></p>";
           ?>
         </div><!-- /.span4 -->

@@ -1,14 +1,13 @@
 <?php
         require_once "connection.php";
 
-        $query = mysql_query("select kode from barang GROUP BY kode");
-        echo "<script> var values = Array();";
+        $query = mysql_query("select jenis_barang from barang GROUP BY jenis_barang");
+        echo "<script> var arr_vals = Array();";
         while ($entry = mysql_fetch_array($query)) {
-            $a[] = $entry["kode"];
-            echo "values.push('".$entry["kode"]."');";
+            echo "arr_vals.push('".$entry["jenis_barang"]."');";
         }
         
-        echo "console.log(values);</script>";
+        echo "</script>";
         
 
     ?>
@@ -25,6 +24,23 @@
                 <input type="text" name="kode" maxlength="50" required="required" autocomplete="off"/>
                 </td>
             </tr>
+             <tr>
+                <td>Supplier</td>
+                <td>:</td>
+                <td>
+
+                <select name="id_supplier" required="required">
+                <option value=""> --Select Category-- </option>
+                <?php 
+                $sql= mysql_query("SELECT kode, nama from supplier GROUP BY kode");
+                    while($result = mysql_fetch_array($sql)){
+                        echo "<OPTION VALUE='".$result["kode"]."'>".$result["nama"]."</OPTION>";
+                    }
+                ?>
+                </select>
+
+                </td>
+            </tr>
             <tr>
                 <td>Nama Barang</td>
                 <td>:</td>
@@ -38,17 +54,17 @@
             <tr>
                 <td>Harga beli</td>
                 <td>:</td>
-                <td><input type="text" name="harga" maxlength="10" required="required" /></td>
+                <td><input type="number" name="harga_beli" maxlength="10" required="required" /></td>
             </tr>
             <tr>
                 <td>Harga jual</td>
                 <td>:</td>
-                <td><input type="text" name="harga_jual" maxlength="10" required="required" /></td>
+                <td><input type="number" name="harga_jual" maxlength="10" required="required" /></td>
             </tr>
             <tr>
                 <td>Jumlah</td>
                 <td>:</td>
-                <td><input type="text" name="jumlah" maxlength="10" required="required" /></td>
+                <td><input type="number" name="jumlah" maxlength="10" required="required" /></td>
             </tr>
             <tr>
                 <td>Tanggal Masuk</td>
@@ -75,3 +91,11 @@
         </tbody>
     </table>
 </form>
+<script>
+    var d = new Date();
+    var curr_date = d.getDate();
+    var curr_month = d.getMonth(); //Months are zero based
+    var curr_year = d.getFullYear();
+
+    $("input[name=tanggal_masuk]").val(curr_month + "/" + curr_date  + "/" + curr_year)
+</script>

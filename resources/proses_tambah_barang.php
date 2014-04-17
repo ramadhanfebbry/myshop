@@ -3,7 +3,7 @@
 include('../connection.php');
  session_start();
 //tangkap data dari form
-$nama_barang = $_POST['nama_barang'];
+
 $allowedExts = array("gif", "jpeg", "jpg", "png");
 print_r($_FILES);
 $temp = explode(".", $_FILES["file"]["name"]);
@@ -19,29 +19,48 @@ if ((($_FILES["file"]["type"] == "image/gif")
   {
   if ($_FILES["file"]["error"] > 0)
     {
-    echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+     $_SESSION["flash"] = "Upload Foto Gagal!";
+      $_SESSION["flash_type"] = "alert-danger";
+      header('location:../page.php?page_name=tambah_barang');
+
     }
   }
 else
   {
-  echo "Invalid file";
+  $_SESSION["flash"] = "File tidak Valid!";
+  $_SESSION["flash_type"] = "alert-danger";
+  header('location:../page.php?page_name=tambah_barang');
   }
-$harga = $_POST['harga'];
+
+$kode = $_POST['kode'];
+$nama_barang = $_POST['nama_barang'];
+$harga_beli = $_POST['harga_beli'];
 $harga_jual = $_POST['harga_jual'];
- $jumlah = $_POST['jumlah'];
- $tanggal_masuk = $_POST['tanggal_masuk'];
+$jumlah = $_POST['jumlah'];
+$tanggal_masuk = $_POST['tanggal_masuk'];
 $imgData = file_get_contents($_FILES['file']['tmp_name']);
 $base64   = base64_encode($imgData); 
 $keterangan = $_POST['keterangan'];
+$id_supplier = $_POST['id_supplier'];
 $img = 'data:' . $_FILES["file"]["type"] . ';base64,' . $base64;
+
+$query_exist = mysql_query("select * from barang where kode='$kode'");
+$count=mysql_num_rows($query_exist);
+if($count>=1){
+  $_SESSION["flash"] = "Barang Sudah Ada, silahkan Update atau Koreksi Kode Barang!";
+  $_SESSION["flash_type"] = "alert-success";
+  header('location:../list_barang.php');  
+}
 //simpan data ke database
-$query = mysql_query("insert into barang values('', '$nama_barang', '$harga', '$harga_jual', '$jumlah','$tanggal_masuk', '$keterangan', '$img', '$img_Data')") or die(mysql_error());
+$query = mysql_query("insert into barang values('$kode', '$nama_barang', $harga_beli, $harga_jual, $jumlah, '$tanggal_masuk', '$keterangan', '$img', '$jenis_barang', '$id_supplier')") or die(mysql_error());
  
 if ($query) {
 		$_SESSION["flash"] = "TAMBAH BARANG BERHASIL!";
 		$_SESSION["flash_type"] = "alert-success";
-    header('location:../list_barang.php');
+    header('location:../page.php?page_name=list_barang');
 }else{
-	echo "Tambah Barang gagal";
+	$_SESSION["flash"] = "Tambah Barang Gagal!";
+  $_SESSION["flash_type"] = "alert-danger";
+  header('location:../page.php?page_name=tambah_barang');
 }
 ?>

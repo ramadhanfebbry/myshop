@@ -1,15 +1,11 @@
 <?php
+//panggil file config.php untuk menghubung ke server
 include('connection.php');
- 
+ session_start();
 //tangkap data dari form
-$id = $_POST['kode'];
-$nama_barang = $_POST['nama_barang'];
-$jenis_barang = $_POST['jenis_barang'];
-$harga = $_POST['harga'];
-$harga_jual = $_POST['harga_jual'];
-$keterangan = $_POST['keterangan'];
+
 $allowedExts = array("gif", "jpeg", "jpg", "png");
-print_r($_FILES);
+
 $temp = explode(".", $_FILES["file"]["name"]);
 $extension = end($temp);
 if ((($_FILES["file"]["type"] == "image/gif")
@@ -23,29 +19,45 @@ if ((($_FILES["file"]["type"] == "image/gif")
   {
   if ($_FILES["file"]["error"] > 0)
     {
-    echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+     $_SESSION["flash"] = "Upload Foto Gagal!";
+      $_SESSION["flash_type"] = "alert-danger";
+      header('location: page.php?page_name=edit_barang');
+
     }
+    $imgData = file_get_contents($_FILES['file']['tmp_name']);
+    $base64   = base64_encode($imgData); 
+    $img = 'data:' . $_FILES["file"]["type"] . ';base64,' . $base64;
+
   }
 else
   {
-  echo "Invalid file";
+  // $_SESSION["flash"] = "File tidak Valid!";
+  // $_SESSION["flash_type"] = "alert-danger";
+  // header('location: page.php?page_name=edit_barang');
+    $img = $_POST["img_file"];
   }
-//simpan data ke database
-$imgData = file_get_contents($_FILES['file']['tmp_name']);
-$base64   = base64_encode($imgData); 
-$img = 'data:' . $_FILES["file"]["type"] . ';base64,' . $base64;
+
+$kode = $_POST['kode'];
+$nama_barang = $_POST['nama_barang'];
+$harga_beli = $_POST['harga_beli'];
+$harga_jual = $_POST['harga_jual'];
+$jumlah = $_POST['jumlah'];
+$jenis_barang = $_POST['jenis_barang'];
 $tanggal_masuk = $_POST['tanggal_masuk'];
- 
-//update data di database sesuai user_id
-$query = mysql_query("update barang set jenis_barang='$jenis_barang', harga_jual='$harga_jual', keterangan='$keterangan', nama='$nama_barang', harga='$harga', img_tmp='$img', tanggal_masuk='$tanggal_masuk' where kode='$id'") or die(mysql_error());
+
+$keterangan = $_POST['keterangan'];
+$id_supplier = $_POST['id_supplier'];
+
+//simpan data ke database
+$query = mysql_query("update barang set jenis_barang='$jenis_barang', kode='$kode', nama='$nama_barang', harga_beli=$harga_beli, harga_jual=$harga_jual, jumlah=$jumlah, tanggal_masuk='$tanggal_masuk', keterangan='$keterangan', img_tmp='$img', jenis_barang='$jenis_barang', id_supplier='$id_supplier' WHERE kode='$kode'") or die(mysql_error());
  
 if ($query) {
-    
-		$_SESSION["flash"] = "EDIT BARANG BERHASIL!";
-		$_SESSION["flash_type"] = "alert-success";
-    header('location: page.php?page_name=enchant_dict_add_to_personal(dict, word)barang');
+    $_SESSION["flash"] = "Update Barang Berhasil!";
+    $_SESSION["flash_type"] = "alert-success";
+    header("location: page.php?page_name=tampil_barang&kode=$kode");
 }else{
-	echo "Edit Barang gagal";
+  $_SESSION["flash"] = "Tambah Barang Gagal!";
+  $_SESSION["flash_type"] = "alert-danger";
+  header('location: page.php?page_name=edit_barang');
 }
-
 ?>

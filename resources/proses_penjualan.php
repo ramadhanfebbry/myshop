@@ -14,7 +14,7 @@ $jumlah_pembelian = $_POST['jumlah_pembelian'];
 	if($count==1){
 
 		if ($row["jumlah"] >= $jumlah_pembelian){
-			$total=$row["harga"]* $jumlah_pembelian;
+		$total=$row["harga"]* $jumlah_pembelian;
 		$query = mysql_query("insert into penjualan values('', '$kode_barang', '$jumlah_pembelian', null,'$total')") or die(mysql_error());
  		
 		if ($query) {

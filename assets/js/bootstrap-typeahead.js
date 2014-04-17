@@ -271,7 +271,9 @@
       e.stopPropagation()
       e.preventDefault()
       this.select()
+      var thisElem = this.$element;
       this.$element.focus()
+
     }
 
   , mouseenter: function (e) {
