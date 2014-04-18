@@ -32,8 +32,22 @@
               <li class="<?php echo ($page_name == "penjualan") ? 'active' : ''; ?>">
                 <a href="page.php?page_name=penjualan">Penjualan</a>
               </li>
-              <li class="<?php echo ($page_name == "laporan") ? 'active' : ''; ?>">
-                <a href="page.php?page_name=laporan">Laporan</a>
+              
+              <li class="dropdown <?php echo (($page_name == "laporan") || ($page_name == "laporan_stok")) ? 'active' : ''; ?>">
+                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Laporan<b class="caret"></b></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="page.php?page_name=laporan">Laporan Penjualan</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="page.php?page_name=laporan_stok">Laporan Stok</a></li>
+                </ul>
+              </li>
+              <li class="dropdown <?php echo (($page_name == "surat_jalan") || ($page_name == "faktur")) ? 'active' : ''; ?>">
+                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Sales Order<b class="caret"></b></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="page.php?page_name=faktur">Faktur</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="page.php?page_name=surat_jalan">Surat Jalan</a></li>
+                </ul>
               </li>
           <?php
             }else{

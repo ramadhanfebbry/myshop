@@ -120,7 +120,7 @@
       })
     })
   })
-$("input[name='tanggal_masuk']").datepicker()
+$("input[name='tanggal_masuk']").datepicker({format: "yyyy/mm/dd"})
 
 // Modified from the original jsonpi https://github.com/benvinegar/jquery-jsonpi
 $.ajaxTransport('jsonpi', function(opts, originalOptions, jqXHR) {

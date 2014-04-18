@@ -3,7 +3,7 @@
 <h2>List Barang</h2>
 <div class="pull-right" style="width: 100%;">
 <form class="form-search" style="float: right;" method="GET" action="page.php">
-  <input type="text" class="input-medium search-query" name="q" value="<?php echo $_GET["q"]; ?>">
+  <input type="text" class="input-medium search-query" name="q" value="<?php echo isset($_GET["q"]) ? $_GET["q"] : "" ?>">
   <input type="hidden" name="page_name" value="listbarang" >
   <button type="submit" class="btn">Search</button>
 </form>
@@ -38,6 +38,7 @@ Tambah</a>
           echo "<h3><a href='page.php?page_name=tampil_barang&kode=".$data['kode']."'>".$data["nama"]."</a></h3>";
           echo "<p><a href='page.php?page_name=edit_barang&kode=".$data['kode']."'>Edit</a>";
           echo " | <a href='page.php?page_name=tampil_barang&kode=".$data['kode']."'>Tampil</a>";
+          echo " | <a href='javascript:void(0)' class='tambahStock' data-id='".$data['kode']."'>Tambah Stok</a>";
           echo " | <a href='delete.php?kode=".$data['kode']."'>Hapus</a></p>";
           ?>
         </div><!-- /.span4 -->

@@ -97,5 +97,5 @@
     var curr_month = d.getMonth(); //Months are zero based
     var curr_year = d.getFullYear();
 
-    $("input[name=tanggal_masuk]").val(curr_month + "/" + curr_date  + "/" + curr_year)
+    $("input[name=tanggal_masuk]").val(curr_year + "/" + curr_month  + "/" + curr_date)
 </script>

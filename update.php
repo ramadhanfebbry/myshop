@@ -45,12 +45,13 @@ $jumlah = $_POST['jumlah'];
 $jenis_barang = $_POST['jenis_barang'];
 $tanggal_masuk = $_POST['tanggal_masuk'];
 
+echo $tanggal_masuk;
 $keterangan = $_POST['keterangan'];
 $id_supplier = $_POST['id_supplier'];
 
 //simpan data ke database
-$query = mysql_query("update barang set jenis_barang='$jenis_barang', kode='$kode', nama='$nama_barang', harga_beli=$harga_beli, harga_jual=$harga_jual, jumlah=$jumlah, tanggal_masuk='$tanggal_masuk', keterangan='$keterangan', img_tmp='$img', jenis_barang='$jenis_barang', id_supplier='$id_supplier' WHERE kode='$kode'") or die(mysql_error());
- 
+$query = mysql_query("update barang set tanggal_masuk=DATE($tanggal_masuk), jenis_barang='$jenis_barang', kode='$kode', nama='$nama_barang', harga_beli=$harga_beli, harga_jual=$harga_jual, jumlah=$jumlah, tanggal_masuk='$tanggal_masuk', keterangan='$keterangan', img_tmp='$img', jenis_barang='$jenis_barang', id_supplier='$id_supplier' WHERE kode='$kode'") or die(mysql_error());
+
 if ($query) {
     $_SESSION["flash"] = "Update Barang Berhasil!";
     $_SESSION["flash_type"] = "alert-success";

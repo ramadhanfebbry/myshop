@@ -1,3 +1,4 @@
+<h1> Laporan Penjualan</h1>
 <br>
 
 <div class="tabbable"> <!-- Only required for left/right tabs -->
@@ -11,7 +12,7 @@
     <div class="tab-pane active" id="tab1">
       <p>
       <a href="#" class="harianPrint btn"><i class="icon-print"></i></a>
-      <table class="table table-bordered table-stripped" id="harianPrintdiv">
+    <table class="table table-bordered table-stripped" id="harianPrintdiv">
       <!-- <Awal Title Table> -->
       <tr>
         <th># No Faktur</th>

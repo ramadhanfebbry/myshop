@@ -1065,3 +1065,41 @@ form.bs-docs-example {
     padding-bottom: 20px;
   }
 }
+
+
+.detail_surat_jalan, .detail_faktur{
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  box-shadow: inset 0 0 5px 0 #012;
+}
+
+.detail_surat_jalan{
+  background: bisque;
+}
+
+.detail_faktur{
+  background: cornflowerblue;
+}
+
+.detail_surat_jalan hr, .detail_faktur hr{
+  border-top: 1px solid #000;
+}
+
+.detail_surat_jalan .bs-docs-example.customer, .detail_faktur .bs-docs-example.customer{
+  background: transparent;
+}
+.detail_surat_jalan .bs-docs-example.customer:after, .detail_faktur .bs-docs-example.customer:after{
+  content: "Customer";
+}
+
+.detail_surat_jalan .bs-docs-example.pembelian{
+  background: transparent;
+}
+.detail_surat_jalan .bs-docs-example.pembelian:after{
+  content: "Pembelian";
+}
+
+.fakturPrint, .suratJalanPrint{
+  margin-bottom : 10px;
+}

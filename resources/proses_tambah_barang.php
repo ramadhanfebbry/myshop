@@ -43,7 +43,7 @@ $base64   = base64_encode($imgData);
 $keterangan = $_POST['keterangan'];
 $id_supplier = $_POST['id_supplier'];
 $img = 'data:' . $_FILES["file"]["type"] . ';base64,' . $base64;
-
+$jenis_barang = $_POST['jenis_barang'];
 $query_exist = mysql_query("select * from barang where kode='$kode'");
 $count=mysql_num_rows($query_exist);
 if($count>=1){
@@ -52,12 +52,14 @@ if($count>=1){
   header('location:../list_barang.php');  
 }
 //simpan data ke database
-$query = mysql_query("insert into barang values('$kode', '$nama_barang', $harga_beli, $harga_jual, $jumlah, '$tanggal_masuk', '$keterangan', '$img', '$jenis_barang', '$id_supplier')") or die(mysql_error());
+$query = mysql_query("insert into barang values('$kode', '$nama_barang', $harga_beli, $harga_jual, $jumlah, DATE('$tanggal_masuk'), '$keterangan', '$img', '$jenis_barang', '$id_supplier')") or die(mysql_error());
+$query2 = mysql_query("insert into log_stok values('$kode', $jumlah, DATE('$tanggal_masuk'))") or die(mysql_error());
+
  
 if ($query) {
 		$_SESSION["flash"] = "TAMBAH BARANG BERHASIL!";
 		$_SESSION["flash_type"] = "alert-success";
-    header('location:../page.php?page_name=list_barang');
+    header('location:../page.php?page_name=listbarang');
 }else{
 	$_SESSION["flash"] = "Tambah Barang Gagal!";
   $_SESSION["flash_type"] = "alert-danger";

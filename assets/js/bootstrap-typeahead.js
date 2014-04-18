@@ -334,4 +334,6 @@
     $this.typeahead($this.data())
   })
 
+  
+
 }(window.jQuery);

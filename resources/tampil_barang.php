@@ -24,6 +24,7 @@
           echo "<td><b>#".$data['kode']."</b></td></tr>";
 
           echo "<tr><td>Nama Barang</td><td> : </td><td><a href='page.php?page_name=tampil_barang&kode=".$data['kode']."'>".$data["nama"]."</a></td></tr>";
+                    echo "<tr><td>Tanggal Masuk</td><td> : </td><td>".$data['tanggal_masuk']."</td></tr>";
 
           echo "<tr><td>Keterangan</td><td>:</td><td>".$data['keterangan']."</td></tr>";
 

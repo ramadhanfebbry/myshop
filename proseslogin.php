@@ -7,6 +7,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	$username=addslashes($_POST['username']); 
 	$mypassword=addslashes($_POST['password']); 
 
+	
 	$sql="SELECT * FROM user WHERE username='$username' and password='$mypassword'";
 	$result=mysql_query($sql);
 	$row=mysql_fetch_array($result);

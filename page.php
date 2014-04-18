@@ -1,7 +1,7 @@
 <?php 
 	require_once('constant.php');
 	session_start();
-  
+  if(isset($_SESSION["username"])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +18,6 @@
 
    	<?php
 
-	    if(isset($_SESSION["username"])){
 	    	require_once "shared/flash_messages.php";
 	    	echo "<div class='container'>";
         $page_name = $_GET["page_name"]; //listbarang
@@ -27,9 +26,7 @@
         }
 	    	
 	    	echo "</div>";
-	    }else{
-	    	require_once "homepage.php";
-	    }
+	    
     ?>
 
 
@@ -39,3 +36,7 @@
     <?php require_once 'shared/bottom_assets.php' ?>
   </body>
   </html>
+<?php
+}else{
+  header("location:index.php");
+}

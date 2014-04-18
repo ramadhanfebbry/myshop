@@ -6,14 +6,14 @@ include('../connection.php');
 //tangkap data dari form
 $kode_barang = $_POST['kode_barang'];
 $jumlah_pembelian = $_POST['jumlah_pembelian'];
- 
+ .
 	$sql="SELECT * FROM barang WHERE kode='$kode_barang'";
 	$result=mysql_query($sql);
 	$row=mysql_fetch_array($result);
 	$count=mysql_num_rows($result);
 	if($count==1){
 
-		if ($row["jumlah"] >= $jumlah_pembelian){
+	if ($row["jumlah"] >= $jumlah_pembelian){	
 		$total=$row["harga"]* $jumlah_pembelian;
 		$query = mysql_query("insert into penjualan values('', '$kode_barang', '$jumlah_pembelian', null,'$total')") or die(mysql_error());
  		

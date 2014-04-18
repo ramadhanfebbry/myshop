@@ -981,8 +981,17 @@
         var delimiter = this.options.delimiterChar;
         var elem = this.dom.$elem;
         var extraCaretPos = 0;
+        if(typeof kode_lists != 'undefined') {
+        	var getProperty = function (propertyName) {
+					    return dummy_lists[propertyName];
+					};
+
+
+					$("input.nama_brg[data-list='" + elem.attr('data-list') + "'").val(data);
+				}
+
         if ( this.options.useDelimiter ) {
-        	console.log("asd")
+        	
             // if there is a preceding delimiter, add a space after the delimiter
             if ( elem.val().substring(d.start-1, d.start) == delimiter && delimiter != ' ' ) {
                 displayValue = ' ' + displayValue;
